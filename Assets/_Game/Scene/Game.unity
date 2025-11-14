@@ -6711,7 +6711,7 @@ MonoBehaviour:
   <PauseGame>k__BackingField: 0
   <IsGameStrated>k__BackingField: 0
   <IsGameFailed>k__BackingField: 0
-  <MoveSpeed>k__BackingField: 8
+  <MoveSpeed>k__BackingField: 10
   <CharecterIndex>k__BackingField: 0
   <player>k__BackingField: {fileID: 2142136248}
 --- !u!4 &2049152588
