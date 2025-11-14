@@ -84,11 +84,12 @@ public class PlayerController : MonoBehaviour
         bool groundedNow = hit.collider != null && jumpTimer <= 0f;
         isGrounded = groundedNow;
 
+
         if (isGrounded)
         {
             rb.gravityScale = 0f;
             rb.velocity = Vector2.zero;
-            if (!GameManager.Instance.PauseGame)
+            if (!GameManager.Instance.PauseGame || !GameManager.Instance.IsGameFailed)
                 player.Run();
         }
         else
@@ -100,8 +101,6 @@ public class PlayerController : MonoBehaviour
     private void TryJump()
     {
         if (!isGrounded || GameManager.Instance.IsGameFailed || GameManager.Instance.PauseGame) return;
-
-
         rb.gravityScale = activeGravityScale;
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         isGrounded = false;

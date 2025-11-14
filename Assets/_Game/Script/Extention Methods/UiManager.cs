@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class UiManager : MonoBehaviourSingleton<UiManager>
 {
-    [SerializeField] GameUi gameUi;
-    [SerializeField] GameOverUI gameOverUI;
+    [field: SerializeField] public GameUi GameUI { get; private set; }
     [SerializeField] GameStartUi gameStartUi;
 
     void Start()

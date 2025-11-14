@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
+
 public class Player : MonoBehaviour
 {
     [field: SerializeField] public bool IsSheildActive { get; private set; }
@@ -16,6 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject[] visuals;
     [SerializeField] Animator[] animators;
     [SerializeField] bool gameFailed;
+    [SerializeField] ParticleSystem particle;
+
 
 
     void Start()
@@ -59,6 +62,7 @@ public class Player : MonoBehaviour
         playerController.SetSpeed(GameManager.Instance.MoveSpeed);
         playerController.SetCanMove(true);
         animator.SetBool("run", true);
+        // particle.Play();
     }
     private void OnGameFial()
     {
@@ -70,12 +74,15 @@ public class Player : MonoBehaviour
     {
         animator.SetBool("run", false);
         animator.SetBool("jump", true);
+        SetParticleState(false);
     }
     public void Run()
     {
         animator.SetBool("run", true);
         animator.SetBool("jump", false);
         animator.SetBool("idle", false);
+        if (!gameFailed)
+            SetParticleState(true);
 
     }
     public void Revieve()
@@ -88,6 +95,7 @@ public class Player : MonoBehaviour
         animator.SetBool("run", !obj);
         // animator.SetBool("jump", !obj);
         animator.SetBool("idle", obj);
+        SetParticleState(false);
     }
 
 
@@ -103,9 +111,11 @@ public class Player : MonoBehaviour
             {
                 if (gameFailed)
                     return;
+                gameFailed = true;
                 OnGameFial();
                 animator.SetBool("fail", true);
                 AudioManager.Instance.PlaySoundOfType(SoundEffectType.Loose);
+                SetParticleState(false);
             }
         }
         else if (collision.gameObject.TryGetComponent<ICollectable>(out ICollectable collectable))
@@ -180,6 +190,8 @@ public class Player : MonoBehaviour
         visuals[inxt].SetActive(true);
         animator = animators[inxt];
     }
+
+    public void SetParticleState(bool ison) => particle.gameObject.SetActive(ison);
 
 
 }

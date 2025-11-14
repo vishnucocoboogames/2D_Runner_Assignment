@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
-public class Coin : MonoBehaviour,ICollectable
+public class Coin : MonoBehaviour, ICollectable
 {
     [SerializeField] GameObject visual;
+
 
     public void OnCollecetion()
     {
@@ -13,8 +16,10 @@ public class Coin : MonoBehaviour,ICollectable
 
     void OnCoinCollcet()
     {
-        GameManager.Instance.OnCoinCollect();
-        AudioManager.Instance.PlaySoundOfType(SoundEffectType.CoinCollect);
-        Destroy(gameObject);
+            AudioManager.Instance.PlaySoundOfType(SoundEffectType.CoinCollect);
+            GameManager.Instance.OnCoinCollect();
+            Destroy(gameObject);
     }
+
+
 }

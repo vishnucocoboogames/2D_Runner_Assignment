@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameUi : MonoBehaviour
 {
-    [SerializeField] Wallet wallet;
+    [field: SerializeField] public Wallet Wallet { get; private set; }
     [SerializeField] GameObject PauseScreen;
 
     void OnEnable()
@@ -20,7 +20,7 @@ public class GameUi : MonoBehaviour
 
     private void OnCoinValueChange()
     {
-        wallet.SetCoinCount();
+        Wallet.SetCoinCount();
     }
     public void OnPauseButtonPress()
     {
@@ -32,5 +32,7 @@ public class GameUi : MonoBehaviour
         GameManager.Instance.OnGemePause(false);
         PauseScreen.SetActive(false);
     }
+
+
 
 }
